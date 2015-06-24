@@ -10,6 +10,7 @@
 #import <Webkit/Webkit.h>
 
 
+
 @interface ViewController () <WKNavigationDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) WKWebView *webView;
@@ -38,7 +39,7 @@
     self.textField.returnKeyType = UIReturnKeyDone;
     self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.textField.placeholder = NSLocalizedString(@"Website URL", @"Placeholder text for web browser URL field");
+    self.textField.placeholder = NSLocalizedString(@"Website URL and Search", @"Placeholder text for web browser URL field");
     self.textField.backgroundColor = [UIColor colorWithWhite:220/255.0f alpha:1];
     self.textField.delegate = self;
     
@@ -77,6 +78,7 @@
     // Do any additional setup after loading the view.
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+    
 }
 
 - (void) viewWillLayoutSubviews {
@@ -114,12 +116,23 @@
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", urlString]];
     }
     
+    // If the string does not seem to be a valid url, format it as a google search url
+    if (!URL.host) {
+        NSString *googleSearch = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", googleSearch]];
+    }
+
+    
     if (URL) {
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         [self.webView loadRequest:request];
     }
     
     return NO;
+    
+    
+    
+   
 }
 
 #pragma mark - WKNavigationDelegate
