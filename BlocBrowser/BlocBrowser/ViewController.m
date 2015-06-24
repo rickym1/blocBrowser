@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import <Webkit/Webkit.h>
 
+@class SUBar;
+
 
 @interface ViewController () <WKNavigationDelegate, UITextFieldDelegate>
 
@@ -79,6 +81,7 @@
     // Do any additional setup after loading the view.
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+    
 }
 
 - (void) viewWillLayoutSubviews {
@@ -116,12 +119,23 @@
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", urlString]];
     }
     
+    // If the string does not seem to be a valid url, format it as a google search url
+    if (!URL.host) {
+        NSString *googleSearch = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", googleSearch]];
+    }
+
+    
     if (URL) {
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         [self.webView loadRequest:request];
     }
     
     return NO;
+    
+    
+    
+   
 }
 
 #pragma mark - WKNavigationDelegate
