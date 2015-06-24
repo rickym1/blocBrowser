@@ -22,6 +22,12 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
     
+    
+    self.window.rootViewController = [[UIAlertController alloc] alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome")
+                                                              message:@"Welcome";
+                                               preferredStyle:UIAlertControllerStyleAlert];
+    
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
