@@ -22,7 +22,6 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
     
-    NSString *welcome = @"Welcome";
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome")
                                                                    message:[welcome localizedDescription]
                                                             preferredStyle:UIAlertControllerStyleAlert];
