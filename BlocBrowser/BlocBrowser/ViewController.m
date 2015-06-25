@@ -11,7 +11,7 @@
 #import "AwesomeFloatingToolbar.h"
 
 #define kWebBrowserBackString NSLocalizedString(@"Back", @"Back command")
-#define kWebBrowserForwardString NSLocalizedString(@"Forward," @"Forward command")
+#define kWebBrowserForwardString NSLocalizedString(@"Forward", @"Forward command")
 #define kWebBrowswerStopString  NSLocalizedString(@"Stop", @"Stop command")
 #define kWebBrowswerRefreshString NSLocalizedString(@"Refresh", @"Reload command")
 
