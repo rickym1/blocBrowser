@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Bloc. All rights reserved.
 //
 #import "AwesomeFloatingToolbar.h"
-
+#import "ViewController.h"
 
 @interface AwesomeFloatingToolbar ()
 
@@ -127,6 +127,7 @@
         NSLog(@"Label tapped: %@", self.currentLabel.text);
         
         if ([self.delegate respondsToSelector:@selector(floatingToolBar:didSelectButtonWithTitle:)]) {
+            
             [self.delegate floatingToolBar:self didSelectButtonWithTitle:self.currentLabel.text];
         }
     }
