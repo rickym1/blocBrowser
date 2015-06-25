@@ -64,6 +64,19 @@
     // Do any additional setup after loading the view.
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome")
+                                                                   message:@"Welcome to the screen"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction  actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                        style:UIAlertActionStyleCancel handler:nil];
+    
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+
+    
 }
 
 - (void) viewWillLayoutSubviews {
@@ -124,7 +137,7 @@
                                                                        message:[error localizedDescription]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+        UIAlertAction *okAction = [UIAlertAction  actionWithTitle:NSLocalizedString(@"OK", nil)
                                                            style:UIAlertActionStyleCancel handler:nil];
         
         [alert addAction:okAction];
