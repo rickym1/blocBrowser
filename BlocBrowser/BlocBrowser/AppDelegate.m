@@ -22,11 +22,18 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
     
+    NSString *welcome = @"Welcome";
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome")
+                                                                   message:[welcome localizedDescription]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     
-    self.window.rootViewController = [[UIAlertController alloc] alertControllerWithTitle:NSLocalizedString(@"Welcome", @"Welcome")
-                                                              message:@"Welcome";
-                                               preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction  actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                        style:UIAlertActionStyleCancel handler:nil];
     
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+
     
     [self.window makeKeyAndVisible];
     return YES;
