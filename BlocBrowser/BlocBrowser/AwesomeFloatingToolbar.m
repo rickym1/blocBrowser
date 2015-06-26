@@ -93,7 +93,7 @@
         NSLog(@"New translation: %@", NSStringFromCGPoint(translation));
         
         if ([self.delegate respondsToSelector:@selector(floatingToolBar:didTryToPanWithOffset:)]) {
-            [self.delegate floatingToolBar:self didTryToPanWithOffset:&translation];
+            [self.delegate floatingToolBar:self didTryToPanWithOffset:translation];
         }
         
         [recognizer setTranslation:CGPointZero inView:self];
