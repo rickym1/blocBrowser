@@ -16,6 +16,8 @@
 @property (nonatomic, weak) UILabel *currentLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+@property (nonatomic, strong) UIPinchGestureRecognizer *pinchGesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
 
 @end
 
@@ -39,21 +41,16 @@
         
         //Make the 4 labels
         for (NSString *currentTitle in self.currentTitles) {
-            UILabel *label = [[UILabel alloc] init];
-            label.userInteractionEnabled = NO;
-            label.alpha = 0.25;
+            UIButton *button = [[UIButton alloc] init];
+            label.userInteractionEnabled = enabled;
+            label.alpha = enabled ? 1.0 : 0.25;
             
             NSUInteger currentTitleIndex = [self.currentTitles indexOfObject:currentTitle];// 0 through 3
             NSString *titleForThisLabel = [self.currentTitles objectAtIndex:currentTitleIndex];
             UIColor *colorForThisLabel = [self.colors objectAtIndex:currentTitleIndex];
             
-            label.textAlignment = NSTextAlignmentCenter;
-            label.font = [UIFont systemFontOfSize:10];
-            label.text = titleForThisLabel;
-            label.backgroundColor = colorForThisLabel;
-            label.textColor = [UIColor whiteColor];
             
-            [labelsArray addObject:label];
+            [labelsArray addObject:button];
         }
         
         self.labels = labelsArray;
@@ -97,6 +94,24 @@
         }
         
         [recognizer setTranslation:CGPointZero inView:self];
+    }
+}
+
+- (void) pinchFired: (UIPinchGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        CGPoint transform = [CGAffineTransformScale([recognizer view].transform, recognizer.scale, recognizer.scale)];
+        recognizer.scale = 1;
+        
+        if ([self.delegate respondsToSelector:@selector(floatingToolBar:didPinchWithScale:)]) {
+            [self.delegate floatingToolBar:self didPinchWithScale:transform];
+        }
+        
+    }
+}
+
+- (void) longPressed: (UILongPressGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        self.backgroundColor = [UIColor greenColor];
     }
 }
 
