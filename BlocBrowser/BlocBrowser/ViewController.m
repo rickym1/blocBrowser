@@ -196,4 +196,10 @@
         toolbar.frame = potentialNewFrame;
     }
 }
+
+- (void) floatingToolBar:(AwesomeFloatingToolbar *)toolbar didPinchWithScale:(CGFloat)scale {
+    CGAffineTransform currentTranform = CGAffineTransformIdentity;
+    CGAffineTransform newTransform = CGAffineTransformScale(currentTranform, scale, scale);
+    toolbar.transform = newTransform;
+}
 @end

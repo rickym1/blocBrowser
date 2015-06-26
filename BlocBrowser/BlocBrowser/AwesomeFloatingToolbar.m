@@ -42,13 +42,16 @@
         //Make the 4 labels
         for (NSString *currentTitle in self.currentTitles) {
             UIButton *button = [[UIButton alloc] init];
-            label.userInteractionEnabled = enabled;
-            label.alpha = enabled ? 1.0 : 0.25;
+            button.userInteractionEnabled = enabled;
+            button.alpha = enabled ? 1.0 : 0.25;
             
             NSUInteger currentTitleIndex = [self.currentTitles indexOfObject:currentTitle];// 0 through 3
             NSString *titleForThisLabel = [self.currentTitles objectAtIndex:currentTitleIndex];
-            UIColor *colorForThisLabel = [self.colors objectAtIndex:currentTitleIndex];
+            UIColor *colorForThisButton = [self.colors objectAtIndex:currentTitleIndex];
             
+            button.backgroundColor = colorForThisButton;
+            
+            [button addTarget:self action:@selector(myAction) forControlEvents:UIControlEventTouchUpInside];
             
             [labelsArray addObject:button];
         }
@@ -65,6 +68,8 @@
         [self addGestureRecognizer:self.tapGesture];
         self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
         [self addGestureRecognizer:self.panGesture];
+        self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchFired:)]
+        [self addGestureRecognizer:self.pinchGesture];
     }
     
     return self;
