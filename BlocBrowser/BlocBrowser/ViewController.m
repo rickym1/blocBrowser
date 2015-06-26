@@ -64,6 +64,8 @@
     // Do any additional setup after loading the view.
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+
 }
 
 - (void) viewWillLayoutSubviews {
@@ -78,8 +80,7 @@
     self.textField.frame = CGRectMake(0, 0, width, itemHeight);
     self.webView.frame = CGRectMake(0, CGRectGetMaxY(self.textField.frame), width, browserHeight);
     
-    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
-}
+    }
 
 #pragma mark - UITextFieldDelegate
 
@@ -174,7 +175,7 @@
 
 #pragma mark - AwesomeFloatingToolbarDelegate
 
-- (void) floatingToolbar: (AwesomeFloatingToolbar *)toolbar didSelectButtonWithTitle:(NSString *)title {
+- (void) floatingToolBar: (AwesomeFloatingToolbar *)toolbar didSelectButtonWithTitle:(NSString *)title {
     if ([title isEqual:kWebBrowserBackString]) {
         [self.webView goBack];
     } else if ([title isEqual:kWebBrowserForwardString]) {
@@ -186,7 +187,7 @@
     }
 }
 
-- (void) floatingToolBar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint *)offset {
+- (void) floatingToolBar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
     CGPoint startingPoint = toolbar.frame.origin;
     CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y + offset.y);
     
@@ -197,9 +198,12 @@
     }
 }
 
-- (void) floatingToolBar:(AwesomeFloatingToolbar *)toolbar didPinchWithScale:(CGFloat)scale {
-    CGAffineTransform currentTranform = CGAffineTransformIdentity;
-    CGAffineTransform newTransform = CGAffineTransformScale(currentTranform, scale, scale);
-    toolbar.transform = newTransform;
+- (void) floatingToolBar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithScale:(CGFloat)scale {
+    CGRect potentialNewFrame = CGRectMake(toolbar.frame.origin.x, toolbar.frame.origin.y, CGRectGetWidth(toolbar.frame) * scale, CGRectGetHeight(toolbar.frame) * scale);
+    
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
+
 }
 @end
