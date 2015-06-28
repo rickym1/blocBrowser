@@ -73,6 +73,8 @@
         [self addGestureRecognizer:self.panGesture];
         self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchFired:)];
         [self addGestureRecognizer:self.pinchGesture];
+        self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
+        [self addGestureRecognizer:self.longPressGesture];
         
     }
     
@@ -112,8 +114,15 @@
 
 - (void) longPressed: (UILongPressGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        // rotate self.colors - recreate? put old elements in?
+        // rotate self.colors - recreate array? put old elements in?
+        self.colors = @[[UIColor colorWithRed:199/255.0 green:158/255.0 blue:203/255.0 alpha:1],
+                        [UIColor colorWithRed:255/255.0 green:105/255.0 blue:97/255.0 alpha:1],
+                        [UIColor colorWithRed:222/255.0 green:165/255.0 blue:164/255.0 alpha:1],
+                        [UIColor colorWithRed:255/255.0 green:179/255.0 blue:171/255.0 alpha:1]];
         //loops over buttons to assign background color
+        for (NSArray in self.colors) {
+            self.backgroundColor = [UIColor self];
+        }
         self.backgroundColor = [UIColor greenColor];
     }
 }
