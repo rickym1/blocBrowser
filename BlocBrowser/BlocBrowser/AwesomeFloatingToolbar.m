@@ -115,15 +115,18 @@
 - (void) longPressed: (UILongPressGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         // rotate self.colors - recreate array? put old elements in?
-        self.colors = @[[UIColor colorWithRed:199/255.0 green:158/255.0 blue:203/255.0 alpha:1],
-                        [UIColor colorWithRed:255/255.0 green:105/255.0 blue:97/255.0 alpha:1],
-                        [UIColor colorWithRed:222/255.0 green:165/255.0 blue:164/255.0 alpha:1],
-                        [UIColor colorWithRed:255/255.0 green:179/255.0 blue:171/255.0 alpha:1]];
+        self.colors = @[self.colors[1],
+                        self.colors[2],
+                        self.colors[3],
+                        self.colors[0]];
         //loops over buttons to assign background color
-        for (NSArray in self.colors) {
-            self.backgroundColor = [UIColor self];
+        NSInteger i = 0;
+        for (UIColor *color in self.colors) {
+            UIButton *button = self.labels[i];
+            i++;
+            button.backgroundColor = color;
+            
         }
-        self.backgroundColor = [UIColor greenColor];
     }
 }
 
